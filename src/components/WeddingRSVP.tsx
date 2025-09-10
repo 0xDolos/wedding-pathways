@@ -6,7 +6,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { Heart, Users } from 'lucide-react';
 
@@ -19,9 +18,7 @@ export const WeddingRSVP = () => {
     guestCount: '1',
     plusOneName: '',
     dietaryRestrictions: '',
-    songRequest: '',
-    accommodationNeeded: false,
-    transportNeeded: false,
+    transportDetails: '',
     specialRequests: ''
   });
   
@@ -54,9 +51,7 @@ export const WeddingRSVP = () => {
       guestCount: '1',
       plusOneName: '',
       dietaryRestrictions: '',
-      songRequest: '',
-      accommodationNeeded: false,
-      transportNeeded: false,
+      transportDetails: '',
       specialRequests: ''
     });
   };
@@ -188,43 +183,23 @@ export const WeddingRSVP = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="songRequest">Song Request</Label>
-                    <Input
-                      id="songRequest"
-                      value={formData.songRequest}
-                      onChange={(e) => handleInputChange('songRequest', e.target.value)}
-                      placeholder="Any special song you'd like to hear?"
+                    <Label htmlFor="transportDetails">Transportation</Label>
+                    <Textarea
+                      id="transportDetails"
+                      value={formData.transportDetails}
+                      onChange={(e) => handleInputChange('transportDetails', e.target.value)}
+                      placeholder="Hotel name & dates for pickup/drop-off"
                       className="romantic-transition"
                     />
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="accommodation"
-                        checked={formData.accommodationNeeded}
-                        onCheckedChange={(checked) => handleInputChange('accommodationNeeded', !!checked)}
-                      />
-                      <Label htmlFor="accommodation">I need assistance with accommodation</Label>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="transport"
-                        checked={formData.transportNeeded}
-                        onCheckedChange={(checked) => handleInputChange('transportNeeded', !!checked)}
-                      />
-                      <Label htmlFor="transport">I need transportation assistance</Label>
-                    </div>
-                  </div>
-
                   <div className="space-y-2">
-                    <Label htmlFor="specialRequests">Special Requests or Messages</Label>
+                    <Label htmlFor="specialRequests">Special Requests</Label>
                     <Textarea
                       id="specialRequests"
                       value={formData.specialRequests}
                       onChange={(e) => handleInputChange('specialRequests', e.target.value)}
-                      placeholder="Any special requests or a message for the happy couple..."
+                      placeholder="Any special requests..."
                       className="romantic-transition"
                     />
                   </div>
@@ -245,7 +220,7 @@ export const WeddingRSVP = () => {
         </Card>
 
         <div className="text-center mt-8 text-muted-foreground">
-          <p>Questions? Contact us at <a href="mailto:wedding@sarahandmichael.com" className="text-primary hover:underline">wedding@sarahandmichael.com</a></p>
+          <p>Questions? Contact us at <a href="mailto:wedding@annaandmichael.com" className="text-primary hover:underline">wedding@annaandmichael.com</a></p>
         </div>
       </div>
     </section>

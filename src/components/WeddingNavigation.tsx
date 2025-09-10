@@ -44,7 +44,7 @@ export const WeddingNavigation = ({ onScrollToSection }: WeddingNavigationProps)
           >
             <Heart className={`w-6 h-6 ${isScrolled ? 'text-primary' : 'text-white'}`} />
             <span className={isScrolled ? 'text-foreground' : 'text-white'}>
-              S & M
+              A & M
             </span>
           </button>
 

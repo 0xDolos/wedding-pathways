@@ -77,8 +77,8 @@ export const WeddingRegistry = () => {
                 to our travel fund, you can send a gift via Venmo or Zelle.
               </p>
               <div className="space-y-2 text-sm text-muted-foreground">
-                <p><strong>Venmo:</strong> @SarahMichael2024</p>
-                <p><strong>Zelle:</strong> sarahandmichael@email.com</p>
+                <p><strong>Venmo:</strong> @AnnaMichael2024</p>
+                <p><strong>Zelle:</strong> annaandmichael@email.com</p>
               </div>
             </CardContent>
           </Card>

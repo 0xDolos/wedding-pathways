@@ -20,20 +20,30 @@ export const WeddingHero = ({ onScrollToSection }: WeddingHeroProps) => {
       
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <div className="animate-fade-in">
-          <Heart className="w-12 h-12 mx-auto mb-6 text-primary-glow animate-pulse" />
-          
-          <h1 className="font-display text-6xl md:text-8xl font-bold text-white mb-4 tracking-wide">
-            Sarah & Michael
-          </h1>
-          
+          <div className="relative inline-block mx-auto mb-10">
+            <Heart
+              className="w-12 h-12 text-primary-glow animate-pulse absolute left-1/2 -translate-x-1/2 -top-[56px]"
+            />
+
+            <h1 className="font-display text-6xl md:text-8xl font-bold text-white tracking-wide text-center">
+              <span className="inline-block mx-2">Anna</span>
+              <span
+                className="relative inline-block mx-2 left-[6px]"
+              >
+                &amp;
+              </span>
+              <span className="inline-block mx-2">Mike</span>
+            </h1>
+          </div>
+
           <div className="w-32 h-0.5 bg-gradient-romantic mx-auto mb-6" />
           
           <p className="text-xl md:text-2xl text-white/90 mb-2 font-light tracking-widest uppercase">
             Together Forever
           </p>
           
-          <p className="text-lg md:text-xl text-white/80 mb-12 font-display italic">
-            June 15, 2024 • Sunset Gardens, Napa Valley
+          <p className="text-xl md:text-2xl text-white/80 mb-12 font-display italic">
+            October 31, 2026 Hua Hin, Thailand
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

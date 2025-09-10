@@ -6,37 +6,47 @@ export const WeddingDetails = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Ceremony Venue",
-      content: "Sunset Gardens\n123 Vineyard Lane\nNapa Valley, CA 94558",
-      time: "4:00 PM"
+      content: "Ceremony Room",
+      time: "8:30 AM - 9:30 AM"
     },
     {
       icon: <Clock className="w-6 h-6" />,
       title: "Reception",
-      content: "Immediately following ceremony\nSame location",
-      time: "6:00 PM - 12:00 AM"
+      content: "Reception Room A",
+      time: "6:00 PM - 10:00 PM"
     },
     {
       icon: <Shirt className="w-6 h-6" />,
       title: "Dress Code",
-      content: "Formal Attire\nEarth tones preferred\nComfortable shoes recommended",
+      content: "Semi casual\nComfortable shoes recommended",
       time: ""
     },
     {
       icon: <Home className="w-6 h-6" />,
       title: "Accommodation",
-      content: "Napa Valley Lodge\n(Special rate available)\nCall: (707) 555-0123",
-      time: "Mention 'Sarah & Michael'"
+      content: (
+        <>
+          Hyatt Regency Hua Hin<br />
+          2 Nights Included
+        </>
+      ),
+      time: (
+        <>
+          <div className="text-primary font-medium">Check in 30 Oct</div>
+          <div className="text-primary font-medium">Check out 1 Nov</div>
+        </>
+      )
     },
     {
       icon: <Plane className="w-6 h-6" />,
       title: "Travel",
-      content: "Nearest Airport: SFO (1.5 hours)\nShuttle service available\nContact us for details",
-      time: ""
+      content: "Suvarnabhumi Airport (3.5 Hours)\n From Bangkok (3 hours)",
+      time: "Shuttle service provided"
     },
     {
       icon: <Camera className="w-6 h-6" />,
-      title: "Photography",
-      content: "Unplugged ceremony\nPlease keep phones away\nProfessional photos to follow",
+      title: "Other Info",
+      content: "More details to come\nItinerary and group activities\nwill be updated closer to the date",
       time: ""
     }
   ];
@@ -86,23 +96,27 @@ export const WeddingDetails = () => {
               <div className="space-y-4 text-left">
                 <div className="flex justify-between items-center border-b border-border pb-2">
                   <span className="font-medium">Guest Arrival</span>
-                  <span className="text-muted-foreground">3:30 PM</span>
+                  <span className="text-muted-foreground">Friday 1:00 PM</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-border pb-2">
                   <span className="font-medium">Ceremony Begins</span>
-                  <span className="text-muted-foreground">4:00 PM</span>
+                  <span className="text-muted-foreground">Saturday 8:30 AM</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-border pb-2">
-                  <span className="font-medium">Cocktail Hour</span>
-                  <span className="text-muted-foreground">5:00 PM</span>
+                  <span className="font-medium">Breakfast</span>
+                  <span className="text-muted-foreground">10:00 AM</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-border pb-2">
                   <span className="font-medium">Reception & Dinner</span>
                   <span className="text-muted-foreground">6:00 PM</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Dancing & Celebration</span>
+                <div className="flex justify-between items-center border-b border-border pb-2">
+                  <span className="font-medium">Celebration</span>
                   <span className="text-muted-foreground">8:00 PM</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="font-medium">Guest Departure</span>
+                  <span className="text-muted-foreground">Sunday 11:00 AM</span>
                 </div>
               </div>
             </CardContent>

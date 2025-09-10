@@ -6,7 +6,7 @@ import { WeddingRSVP } from "@/components/WeddingRSVP";
 import { Heart } from "lucide-react";
 
 const Index = () => {
-  const weddingDate = new Date('2024-06-15T16:00:00');
+  const weddingDate = new Date('2026-10-31T16:00:00+07:00');
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -31,8 +31,8 @@ const Index = () => {
       <footer className="bg-foreground text-background py-12">
         <div className="container mx-auto px-4 text-center">
           <Heart className="w-8 h-8 mx-auto mb-4 text-primary animate-pulse" />
-          <h3 className="font-display text-2xl font-bold mb-2">Sarah & Michael</h3>
-          <p className="text-background/80 mb-4">June 15, 2024</p>
+          <h3 className="font-display text-2xl font-bold mb-2">Anna & Mike</h3>
+          <p className="text-background/80 mb-4">October 31, 2026</p>
           <p className="text-sm text-background/60">
             Made with ♥ for our special day
           </p>
