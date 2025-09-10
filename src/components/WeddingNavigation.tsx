@@ -20,10 +20,8 @@ export const WeddingNavigation = ({ onScrollToSection }: WeddingNavigationProps)
   }, []);
 
   const navItems = [
-    { label: 'Our Story', id: 'story' },
     { label: 'Details', id: 'details' },
     { label: 'RSVP', id: 'rsvp' },
-    { label: 'Registry', id: 'registry' },
   ];
 
   return (
