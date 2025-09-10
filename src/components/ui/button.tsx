@@ -15,6 +15,9 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        wedding: "bg-gradient-romantic text-primary-foreground hover:shadow-romantic romantic-transition",
+        elegant: "bg-background border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground romantic-transition elegant-shadow",
+        gold: "bg-gradient-gold text-accent-foreground hover:shadow-glow romantic-transition",
       },
       size: {
         default: "h-10 px-4 py-2",
