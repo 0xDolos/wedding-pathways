@@ -172,7 +172,7 @@ export const WeddingRSVP = () => {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="guestCount">Number of Guests (including children)</Label>
+                      <Label htmlFor="guestCount">Number of Guests</Label>
                       <Select
                         value={formData.guestCount}
                         onValueChange={(value) => handleInputChange("guestCount", value)}
