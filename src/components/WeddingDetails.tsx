@@ -6,20 +6,20 @@ export const WeddingDetails = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Ceremony Venue",
-      content: "Ceremony Room",
-      time: "8:30 AM - 9:30 AM"
+      content: "Traditional Thai wedding ceremony\nat the Fountain Bar",
+      time: "8:00 AM - 12:00 PM"
     },
     {
       icon: <Clock className="w-6 h-6" />,
-      title: "Reception",
-      content: "Reception Room A",
+      title: "Dinner Reception",
+      content: "Outdoor beach lawn\nInternational buffet",
       time: "6:00 PM - 10:00 PM"
     },
     {
       icon: <Shirt className="w-6 h-6" />,
       title: "Dress Code",
-      content: "Semi casual\nComfortable shoes recommended",
-      time: ""
+      content: "Smart casual, comfort wear\nand western style dresses are all welcome",
+      time: "Traditional Thai attire is not required "
     },
     {
       icon: <Home className="w-6 h-6" />,
@@ -27,27 +27,33 @@ export const WeddingDetails = () => {
       content: (
         <>
           Hyatt Regency Hua Hin<br />
-          2 Nights Included
+          <br />
+          2 Nights included for all guests<br />
+          Daily hotel breakfast included
         </>
       ),
       time: (
         <>
-          <div className="text-primary font-medium">Check in 30 Oct</div>
-          <div className="text-primary font-medium">Check out 1 Nov</div>
+          <div className="text-primary font-medium">Check-in: Friday 30 Oct, 1:00 - 3:00 PM</div>
+          <div className="text-primary font-medium">Check-out: Sunday 1 Nov, 12:00 PM</div>
         </>
       )
     },
     {
       icon: <Plane className="w-6 h-6" />,
       title: "Travel",
-      content: "Suvarnabhumi Airport (3.5 Hours)\n From Bangkok (3 hours)",
-      time: "Shuttle service provided"
+      content: "From Bangkok (3 hours)\n\n 30-32°C daytime\n 24-26°C evenings\n Tropical humidity 80%",
+      time: "Round trip shuttle from your Bangkok hotel to the wedding venue provided"
     },
     {
       icon: <Camera className="w-6 h-6" />,
       title: "Other Info",
-      content: "More details to come\nItinerary and group activities\nwill be updated closer to the date",
-      time: ""
+      content: (
+        <>
+          No gifts necessary<br />your presence is more than enough<br />
+        </>
+      ),
+      time: "More details to come. Guests will be updated closer to the date"
     }
   ];
 
@@ -93,31 +99,64 @@ export const WeddingDetails = () => {
               <h3 className="font-display text-2xl font-bold text-primary mb-4">
                 Wedding Timeline
               </h3>
-              <div className="space-y-4 text-left">
-                <div className="flex justify-between items-center border-b border-border pb-2">
-                  <span className="font-medium">Guest Arrival</span>
-                  <span className="text-muted-foreground">Friday 1:00 PM</span>
+              <div className="space-y-8 text-left">
+
+                {/* Friday */}
+                <div>
+                  <div className="text-primary font-semibold text-lg mb-2">
+                    Friday 30 October
+                  </div>
+
+                  <div className="flex justify-between items-center border-b border-border pb-2">
+                    <span className="font-medium">Guest Arrival</span>
+                    <span className="text-muted-foreground">From 1:00 PM</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center border-b border-border pb-2">
-                  <span className="font-medium">Ceremony Begins</span>
-                  <span className="text-muted-foreground">Saturday 8:30 AM</span>
+
+                {/* Saturday */}
+                <div>
+                  <div className="text-primary font-semibold text-lg mb-2">
+                    Saturday 31 October
+                  </div>
+
+                  <div className="flex justify-between items-center border-b border-border pb-2">
+                    <span className="font-medium">Breakfast</span>
+                    <span className="text-muted-foreground">6:30–8:00 AM</span>
+                  </div>
+
+                  <div className="flex justify-between items-center border-b border-border pb-2">
+                    <span className="font-medium">Thai Wedding Ceremony</span>
+                    <span className="text-muted-foreground">8:00–11:00 AM</span>
+                  </div>
+
+                  <div className="flex justify-between items-center border-b border-border pb-2">
+                    <span className="font-medium">High Tea</span>
+                    <span className="text-muted-foreground">11:00 AM</span>
+                  </div>
+
+                  <div className="flex justify-between items-center border-b border-border pb-2">
+                    <span className="font-medium">Reception Dinner</span>
+                    <span className="text-muted-foreground">6:00 PM</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">Evening Celebration</span>
+                    <span className="text-muted-foreground">10:00 PM</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center border-b border-border pb-2">
-                  <span className="font-medium">Breakfast</span>
-                  <span className="text-muted-foreground">10:00 AM</span>
+
+                {/* Sunday */}
+                <div>
+                  <div className="text-primary font-semibold text-lg mb-2">
+                    Sunday 1 November
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">Guest Departure</span>
+                    <span className="text-muted-foreground">12:00 PM</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center border-b border-border pb-2">
-                  <span className="font-medium">Reception & Dinner</span>
-                  <span className="text-muted-foreground">6:00 PM</span>
-                </div>
-                <div className="flex justify-between items-center border-b border-border pb-2">
-                  <span className="font-medium">Celebration</span>
-                  <span className="text-muted-foreground">8:00 PM</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Guest Departure</span>
-                  <span className="text-muted-foreground">Sunday 11:00 AM</span>
-                </div>
+
               </div>
             </CardContent>
           </Card>

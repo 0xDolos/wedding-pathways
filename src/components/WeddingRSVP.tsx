@@ -24,6 +24,8 @@ export const WeddingRSVP = () => {
     phone: "",
     attending: "",
     guestCount: "1",
+    childrenCount: "0",
+    childrenNames: "",
     plusOneName: "",
     dietaryRestrictions: "",
     transportDetails: "",
@@ -61,6 +63,8 @@ export const WeddingRSVP = () => {
         phone: "",
         attending: "",
         guestCount: "1",
+        childrenCount: "0",
+        childrenNames: "",
         plusOneName: "",
         dietaryRestrictions: "",
         transportDetails: "",
@@ -168,12 +172,10 @@ export const WeddingRSVP = () => {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="guestCount">Number of Guests</Label>
+                      <Label htmlFor="guestCount">Number of Guests (including children)</Label>
                       <Select
                         value={formData.guestCount}
-                        onValueChange={(value) =>
-                          handleInputChange("guestCount", value)
-                        }
+                        onValueChange={(value) => handleInputChange("guestCount", value)}
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -185,20 +187,50 @@ export const WeddingRSVP = () => {
                       </Select>
                     </div>
 
-                    {formData.guestCount === "2" && (
-                      <div className="space-y-2">
-                        <Label htmlFor="plusOneName">Plus One Name</Label>
-                        <Input
-                          id="plusOneName"
-                          value={formData.plusOneName}
-                          onChange={(e) =>
-                            handleInputChange("plusOneName", e.target.value)
-                          }
-                          className="romantic-transition"
-                        />
-                      </div>
-                    )}
+                    <div className="space-y-2">
+                      <Label htmlFor="childrenCount">Number of Children</Label>
+                      <Select
+                        value={formData.childrenCount}
+                        onValueChange={(value) => handleInputChange("childrenCount", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="0" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="0">0</SelectItem>
+                          <SelectItem value="1">1</SelectItem>
+                          <SelectItem value="2">2</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
+
+                  {/* Plus one block FIRST */}
+                  {formData.guestCount === "2" && (
+                    <div className="space-y-2 mt-4">
+                      <Label htmlFor="plusOneName">Plus One Name</Label>
+                      <Input
+                        id="plusOneName"
+                        value={formData.plusOneName}
+                        onChange={(e) => handleInputChange("plusOneName", e.target.value)}
+                        className="romantic-transition"
+                      />
+                    </div>
+                  )}
+
+                  {/* Children names block after plus one */}
+                  {formData.childrenCount !== "0" && (
+                    <div className="space-y-2">
+                      <Label htmlFor="childrenNames">Children’s Names</Label>
+                      <Input
+                        id="childrenNames"
+                        value={formData.childrenNames}
+                        onChange={(e) => handleInputChange("childrenNames", e.target.value)}
+                        placeholder=""
+                        className="romantic-transition"
+                      />
+                    </div>
+                  )}
 
                   <div className="space-y-2">
                     <Label htmlFor="dietaryRestrictions">
@@ -216,14 +248,14 @@ export const WeddingRSVP = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="transportDetails">Transportation</Label>
+                    <Label htmlFor="transportDetails">Shuttle Pickup Details</Label>
                     <Textarea
                       id="transportDetails"
                       value={formData.transportDetails}
                       onChange={(e) =>
                         handleInputChange("transportDetails", e.target.value)
                       }
-                      placeholder="Hotel name & dates for pickup/drop-off"
+                      placeholder="Your hotel name and address for pick-up and drop-off"
                       className="romantic-transition"
                     />
                   </div>
@@ -260,12 +292,23 @@ export const WeddingRSVP = () => {
 
         <div className="text-center mt-8 text-muted-foreground">
           <p>
-            Questions? Contact us at{" "}
+            Questions? Contact{" "}
             <a
-              href="mailto:wedding@annaandmichael.com"
+              href="https://wa.me/61434057326"
               className="text-primary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              wedding@annaandmichael.com
+              Anna
+            </a>{" "}
+            or{" "}
+            <a
+              href="https://wa.me/61405637265"
+              className="text-primary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Mike
             </a>
           </p>
         </div>
