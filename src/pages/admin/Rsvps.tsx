@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithPopup,
+  GoogleAuthProvider,
+  User,
+} from "firebase/auth";
 
 type RSVP = {
   id: string;
@@ -23,6 +30,15 @@ type RSVP = {
 const AdminRSVPsPage = () => {
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const auth = getAuth();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchRSVPs = async () => {
@@ -69,6 +85,15 @@ const AdminRSVPsPage = () => {
 
     fetchRSVPs();
   }, []);
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  };
 
   const downloadCSV = () => {
     if (!rsvps.length) return;
@@ -136,77 +161,89 @@ const AdminRSVPsPage = () => {
 
   return (
     <main className="min-h-screen bg-background py-10">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="font-display text-3xl font-bold">
-            Admin – RSVPs
-          </h1>
+      {!user ? (
+        <div className="flex flex-col items-center justify-center h-[60vh]">
+          <h1 className="text-2xl font-display mb-4">Admin Login</h1>
           <button
-            onClick={downloadCSV}
-            disabled={!rsvps.length}
-            className="rounded-md bg-black text-white px-4 py-2 text-sm font-medium disabled:opacity-50"
+            onClick={handleGoogleLogin}
+            className="rounded-md bg-black text-white px-4 py-2 text-sm font-medium"
           >
-            Download CSV
+            Sign in with Google
           </button>
         </div>
-
-        {loading ? (
-          <p>Loading RSVPs...</p>
-        ) : !rsvps.length ? (
-          <p>No RSVPs yet.</p>
-        ) : (
-          <div className="overflow-x-auto border rounded-lg">
-            <table className="min-w-full text-sm">
-              <thead className="bg-muted">
-                <tr>
-                  <th className="px-3 py-2 text-left">Guest Name</th>
-                  <th className="px-3 py-2 text-left">Email</th>
-                  <th className="px-3 py-2 text-left">Attending</th>
-                  <th className="px-3 py-2 text-left">Guests</th>
-                  <th className="px-3 py-2 text-left">Children</th>
-                  <th className="px-3 py-2 text-left">Children Names</th>
-                  <th className="px-3 py-2 text-left">Plus One</th>
-                  <th className="px-3 py-2 text-left">Dietary</th>
-                  <th className="px-3 py-2 text-left">Shuttle Details</th>
-                  <th className="px-3 py-2 text-left">Special Requests</th>
-                  <th className="px-3 py-2 text-left">Created At</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rsvps.map((r) => (
-                  <tr key={r.id} className="border-t align-top">
-                    <td className="px-3 py-2">{r.guestName}</td>
-                    <td className="px-3 py-2">{r.email}</td>
-                    <td className="px-3 py-2 capitalize">
-                      {r.attending}
-                    </td>
-                    <td className="px-3 py-2">{r.guestCount}</td>
-                    <td className="px-3 py-2">{r.childrenCount}</td>
-                    <td className="px-3 py-2 whitespace-pre-wrap">
-                      {r.childrenNames}
-                    </td>
-                    <td className="px-3 py-2">{r.plusOneName}</td>
-                    <td className="px-3 py-2 whitespace-pre-wrap">
-                      {r.dietaryRestrictions}
-                    </td>
-                    <td className="px-3 py-2 whitespace-pre-wrap">
-                      {r.transportDetails}
-                    </td>
-                    <td className="px-3 py-2 whitespace-pre-wrap">
-                      {r.specialRequests}
-                    </td>
-                    <td className="px-3 py-2">
-                      {r.createdAt
-                        ? new Date(r.createdAt).toLocaleString()
-                        : ""}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      ) : (
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="font-display text-3xl font-bold">
+              Admin – RSVPs
+            </h1>
+            <button
+              onClick={downloadCSV}
+              disabled={!rsvps.length}
+              className="rounded-md bg-black text-white px-4 py-2 text-sm font-medium disabled:opacity-50"
+            >
+              Download CSV
+            </button>
           </div>
-        )}
-      </div>
+
+          {loading ? (
+            <p>Loading RSVPs...</p>
+          ) : !rsvps.length ? (
+            <p>No RSVPs yet.</p>
+          ) : (
+            <div className="overflow-x-auto border rounded-lg">
+              <table className="min-w-full text-sm">
+                <thead className="bg-muted">
+                  <tr>
+                    <th className="px-3 py-2 text-left">Guest Name</th>
+                    <th className="px-3 py-2 text-left">Email</th>
+                    <th className="px-3 py-2 text-left">Attending</th>
+                    <th className="px-3 py-2 text-left">Guests</th>
+                    <th className="px-3 py-2 text-left">Children</th>
+                    <th className="px-3 py-2 text-left">Children Names</th>
+                    <th className="px-3 py-2 text-left">Plus One</th>
+                    <th className="px-3 py-2 text-left">Dietary</th>
+                    <th className="px-3 py-2 text-left">Shuttle Details</th>
+                    <th className="px-3 py-2 text-left">Special Requests</th>
+                    <th className="px-3 py-2 text-left">Created At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rsvps.map((r) => (
+                    <tr key={r.id} className="border-t align-top">
+                      <td className="px-3 py-2">{r.guestName}</td>
+                      <td className="px-3 py-2">{r.email}</td>
+                      <td className="px-3 py-2 capitalize">
+                        {r.attending}
+                      </td>
+                      <td className="px-3 py-2">{r.guestCount}</td>
+                      <td className="px-3 py-2">{r.childrenCount}</td>
+                      <td className="px-3 py-2 whitespace-pre-wrap">
+                        {r.childrenNames}
+                      </td>
+                      <td className="px-3 py-2">{r.plusOneName}</td>
+                      <td className="px-3 py-2 whitespace-pre-wrap">
+                        {r.dietaryRestrictions}
+                      </td>
+                      <td className="px-3 py-2 whitespace-pre-wrap">
+                        {r.transportDetails}
+                      </td>
+                      <td className="px-3 py-2 whitespace-pre-wrap">
+                        {r.specialRequests}
+                      </td>
+                      <td className="px-3 py-2">
+                        {r.createdAt
+                          ? new Date(r.createdAt).toLocaleString()
+                          : ""}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
     </main>
   );
 };

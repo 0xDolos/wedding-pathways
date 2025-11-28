@@ -31,6 +31,7 @@ export const WeddingRSVP = () => {
     transportDetails: "",
     specialRequests: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { toast } = useToast();
 
@@ -43,6 +44,7 @@ export const WeddingRSVP = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       await addDoc(collection(db, "rsvps"), {
@@ -78,6 +80,8 @@ export const WeddingRSVP = () => {
           "We couldn't save your RSVP. Please try again in a moment.",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -272,10 +276,20 @@ export const WeddingRSVP = () => {
                 size="lg"
                 className="w-full"
                 disabled={
-                  !formData.guestName || !formData.email || !formData.attending
+                  isSubmitting ||
+                  !formData.guestName ||
+                  !formData.email ||
+                  !formData.attending
                 }
               >
-                Send RSVP
+                {isSubmitting ? (
+                  <>
+                    <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent align-middle" />
+                    Sending...
+                  </>
+                ) : (
+                  "Send RSVP"
+                )}
               </Button>
             </form>
           </CardContent>
