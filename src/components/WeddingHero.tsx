@@ -38,8 +38,8 @@ export const WeddingHero = ({ onScrollToSection }: WeddingHeroProps) => {
 
           <div className="w-32 h-0.5 bg-gradient-romantic mx-auto mb-6" />
           
-          <p className="text-xl md:text-2xl text-white/90 mb-2 font-light tracking-widest uppercase">
-            Together Forever
+          <p className="text-xl md:text-2xl text-white/90 mb-2 font-light">
+            are getting married
           </p>
           
           <p className="text-xl md:text-2xl text-white/80 mb-12 font-display italic">

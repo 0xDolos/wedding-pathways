@@ -1,59 +1,80 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { useToast } from '@/hooks/use-toast';
-import { Heart, Users } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/hooks/use-toast";
+import { Heart, Users } from "lucide-react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 export const WeddingRSVP = () => {
   const [formData, setFormData] = useState({
-    guestName: '',
-    email: '',
-    phone: '',
-    attending: '',
-    guestCount: '1',
-    plusOneName: '',
-    dietaryRestrictions: '',
-    transportDetails: '',
-    specialRequests: ''
+    guestName: "",
+    email: "",
+    phone: "",
+    attending: "",
+    guestCount: "1",
+    plusOneName: "",
+    dietaryRestrictions: "",
+    transportDetails: "",
+    specialRequests: "",
   });
-  
+
   const { toast } = useToast();
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Here you would normally send data to Supabase
-    console.log('RSVP Data:', formData);
-    
-    toast({
-      title: "RSVP Received! 💕",
-      description: "Thank you for your response. We can't wait to celebrate with you!",
-    });
-    
-    // Reset form
-    setFormData({
-      guestName: '',
-      email: '',
-      phone: '',
-      attending: '',
-      guestCount: '1',
-      plusOneName: '',
-      dietaryRestrictions: '',
-      transportDetails: '',
-      specialRequests: ''
-    });
+
+    try {
+      await addDoc(collection(db, "rsvps"), {
+        ...formData,
+        createdAt: Timestamp.now(),
+      });
+
+      toast({
+        title: "RSVP Received! 💕",
+        description:
+          "Thank you for your response. We can't wait to celebrate with you!",
+      });
+
+      // Reset form
+      setFormData({
+        guestName: "",
+        email: "",
+        phone: "",
+        attending: "",
+        guestCount: "1",
+        plusOneName: "",
+        dietaryRestrictions: "",
+        transportDetails: "",
+        specialRequests: "",
+      });
+    } catch (error) {
+      console.error("Error saving RSVP:", error);
+      toast({
+        title: "Something went wrong",
+        description:
+          "We couldn't save your RSVP. Please try again in a moment.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -65,8 +86,8 @@ export const WeddingRSVP = () => {
             RSVP
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Please let us know if you'll be joining us on our special day. 
-            We can't wait to celebrate with you!
+            Please let us know if you'll be joining us on our special day. We
+            can't wait to celebrate with you!
           </p>
           <div className="w-24 h-0.5 bg-gradient-romantic mx-auto mt-6" />
         </div>
@@ -86,7 +107,9 @@ export const WeddingRSVP = () => {
                   <Input
                     id="guestName"
                     value={formData.guestName}
-                    onChange={(e) => handleInputChange('guestName', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("guestName", e.target.value)
+                    }
                     required
                     className="romantic-transition"
                   />
@@ -97,7 +120,7 @@ export const WeddingRSVP = () => {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     required
                     className="romantic-transition"
                   />
@@ -110,7 +133,7 @@ export const WeddingRSVP = () => {
                   id="phone"
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  onChange={(e) => handleInputChange("phone", e.target.value)}
                   className="romantic-transition"
                 />
               </div>
@@ -120,7 +143,9 @@ export const WeddingRSVP = () => {
                 <Label className="text-base">Will you be attending? *</Label>
                 <RadioGroup
                   value={formData.attending}
-                  onValueChange={(value) => handleInputChange('attending', value)}
+                  onValueChange={(value) =>
+                    handleInputChange("attending", value)
+                  }
                   className="flex gap-6"
                 >
                   <div className="flex items-center space-x-2">
@@ -134,19 +159,21 @@ export const WeddingRSVP = () => {
                 </RadioGroup>
               </div>
 
-              {formData.attending === 'yes' && (
+              {formData.attending === "yes" && (
                 <div className="space-y-4 p-4 bg-muted/50 rounded-lg">
                   <div className="flex items-center gap-2">
                     <Users className="w-5 h-5 text-primary" />
                     <Label className="text-base">Guest Information</Label>
                   </div>
-                  
+
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="guestCount">Number of Guests</Label>
                       <Select
                         value={formData.guestCount}
-                        onValueChange={(value) => handleInputChange('guestCount', value)}
+                        onValueChange={(value) =>
+                          handleInputChange("guestCount", value)
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -158,13 +185,15 @@ export const WeddingRSVP = () => {
                       </Select>
                     </div>
 
-                    {formData.guestCount === '2' && (
+                    {formData.guestCount === "2" && (
                       <div className="space-y-2">
                         <Label htmlFor="plusOneName">Plus One Name</Label>
                         <Input
                           id="plusOneName"
                           value={formData.plusOneName}
-                          onChange={(e) => handleInputChange('plusOneName', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("plusOneName", e.target.value)
+                          }
                           className="romantic-transition"
                         />
                       </div>
@@ -172,11 +201,15 @@ export const WeddingRSVP = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="dietaryRestrictions">Dietary Restrictions or Allergies</Label>
+                    <Label htmlFor="dietaryRestrictions">
+                      Dietary Restrictions or Allergies
+                    </Label>
                     <Textarea
                       id="dietaryRestrictions"
                       value={formData.dietaryRestrictions}
-                      onChange={(e) => handleInputChange('dietaryRestrictions', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("dietaryRestrictions", e.target.value)
+                      }
                       placeholder="Please let us know about any dietary needs..."
                       className="romantic-transition"
                     />
@@ -187,7 +220,9 @@ export const WeddingRSVP = () => {
                     <Textarea
                       id="transportDetails"
                       value={formData.transportDetails}
-                      onChange={(e) => handleInputChange('transportDetails', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("transportDetails", e.target.value)
+                      }
                       placeholder="Hotel name & dates for pickup/drop-off"
                       className="romantic-transition"
                     />
@@ -198,7 +233,9 @@ export const WeddingRSVP = () => {
                     <Textarea
                       id="specialRequests"
                       value={formData.specialRequests}
-                      onChange={(e) => handleInputChange('specialRequests', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("specialRequests", e.target.value)
+                      }
                       placeholder="Any special requests..."
                       className="romantic-transition"
                     />
@@ -206,12 +243,14 @@ export const WeddingRSVP = () => {
                 </div>
               )}
 
-              <Button 
-                type="submit" 
-                variant="wedding" 
-                size="lg" 
+              <Button
+                type="submit"
+                variant="wedding"
+                size="lg"
                 className="w-full"
-                disabled={!formData.guestName || !formData.email || !formData.attending}
+                disabled={
+                  !formData.guestName || !formData.email || !formData.attending
+                }
               >
                 Send RSVP
               </Button>
@@ -220,7 +259,15 @@ export const WeddingRSVP = () => {
         </Card>
 
         <div className="text-center mt-8 text-muted-foreground">
-          <p>Questions? Contact us at <a href="mailto:wedding@annaandmichael.com" className="text-primary hover:underline">wedding@annaandmichael.com</a></p>
+          <p>
+            Questions? Contact us at{" "}
+            <a
+              href="mailto:wedding@annaandmichael.com"
+              className="text-primary hover:underline"
+            >
+              wedding@annaandmichael.com
+            </a>
+          </p>
         </div>
       </div>
     </section>
