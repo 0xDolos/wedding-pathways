@@ -101,6 +101,9 @@ export const WeddingRSVP = () => {
             <CardTitle className="font-display text-2xl text-center text-primary">
               Reserve Your Spot
             </CardTitle>
+            <p className="text-center text-sm text-muted-foreground mt-1">
+              Please RSVP by <span className="font-medium">28 February 2026</span>.
+            </p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -242,23 +245,11 @@ export const WeddingRSVP = () => {
                       onChange={(e) =>
                         handleInputChange("dietaryRestrictions", e.target.value)
                       }
-                      placeholder="Please let us know about any dietary needs..."
+                      placeholder="Let us know about any dietary needs..."
                       className="romantic-transition"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="transportDetails">Shuttle Pickup Details</Label>
-                    <Textarea
-                      id="transportDetails"
-                      value={formData.transportDetails}
-                      onChange={(e) =>
-                        handleInputChange("transportDetails", e.target.value)
-                      }
-                      placeholder="Your hotel name and address for pick-up and drop-off"
-                      className="romantic-transition"
-                    />
-                  </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="specialRequests">Special Requests</Label>

@@ -6,7 +6,7 @@ export const WeddingDetails = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Ceremony Venue",
-      content: "Traditional Thai wedding ceremony\nat the Fountain Bar",
+      content: "Hyatt Regency Hua Hin\n\nTraditional Thai wedding ceremony\nat the Fountain Bar",
       time: "8:00 AM - 12:00 PM"
     },
     {
@@ -32,17 +32,11 @@ export const WeddingDetails = () => {
           Daily hotel breakfast included
         </>
       ),
-      time: (
-        <>
-          <div className="text-primary font-medium">Check-in: Friday 30 Oct, 1:00 - 3:00 PM</div>
-          <div className="text-primary font-medium">Check-out: Sunday 1 Nov, 12:00 PM</div>
-        </>
-      )
     },
     {
       icon: <Plane className="w-6 h-6" />,
       title: "Travel",
-      content: "From Bangkok (3 hours)\n\n 30-32°C daytime\n 24-26°C evenings\n Tropical humidity 80%",
+      content: "From Bangkok (3 hours)\n",
       time: "Round trip shuttle from your Bangkok hotel to the wedding venue provided"
     },
     {
