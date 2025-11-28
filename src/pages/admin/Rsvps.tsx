@@ -17,7 +17,7 @@ type RSVP = {
   dietaryRestrictions: string;
   transportDetails: string;
   specialRequests: string;
-  createdAt: string; // ISO string
+  createdAt: string;
 };
 
 const AdminRSVPsPage = () => {
@@ -29,12 +29,14 @@ const AdminRSVPsPage = () => {
       try {
         const snap = await getDocs(collection(db, "rsvps"));
 
-        const data: RSVP[] = snap.docs.map((doc) => {
-          const d = doc.data() as any;
+        const data: RSVP[] = snap.docs.map((doc): RSVP => {
+          const d = doc.data() as Partial<RSVP>;
           let createdAt = "";
 
-          if (d.createdAt instanceof Timestamp) {
-            createdAt = d.createdAt.toDate().toISOString();
+          if (d.createdAt && d.createdAt instanceof Timestamp) {
+          createdAt = d.createdAt.toDate().toISOString();
+          } else if (typeof d.createdAt === "string") {
+          createdAt = d.createdAt;
           }
 
           return {
