@@ -120,7 +120,7 @@ export const WeddingDetails = () => {
 
                   <div className="flex justify-between items-center border-b border-border pb-2">
                     <span className="font-medium">Thai Wedding Ceremony</span>
-                    <span className="text-muted-foreground">8:00–11:00 AM</span>
+                    <span className="text-muted-foreground">8:00 AM</span>
                   </div>
 
                   <div className="flex justify-between items-center border-b border-border pb-2">
