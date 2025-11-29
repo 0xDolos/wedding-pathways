@@ -14,6 +14,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { Heart, Users } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
@@ -32,6 +33,10 @@ export const WeddingRSVP = () => {
     specialRequests: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { i18n } = useTranslation();
+  const currentLang = (i18n.language || "en").toLowerCase();
+  const isThai = currentLang.startsWith("th");
 
   const { toast } = useToast();
 
@@ -53,9 +58,10 @@ export const WeddingRSVP = () => {
       });
 
       toast({
-        title: "RSVP Received! 💕",
-        description:
-          "Thank you for your response. We can't wait to celebrate with you!",
+        title: isThai ? "ได้รับคำตอบรับแล้ว 💕" : "RSVP Received! 💕",
+        description: isThai
+          ? "ขอบคุณที่ตอบรับคำเชิญ เราอยากฉลองกับคุณมาก ๆ !"
+          : "Thank you for your response. We can't wait to celebrate with you!",
       });
 
       // Reset form
@@ -75,9 +81,10 @@ export const WeddingRSVP = () => {
     } catch (error) {
       console.error("Error saving RSVP:", error);
       toast({
-        title: "Something went wrong",
-        description:
-          "We couldn't save your RSVP. Please try again in a moment.",
+        title: isThai ? "เกิดข้อผิดพลาด" : "Something went wrong",
+        description: isThai
+          ? "ไม่สามารถบันทึกคำตอบรับได้ กรุณาลองใหม่อีกครั้ง"
+          : "We couldn't save your RSVP. Please try again in a moment.",
         variant: "destructive",
       });
     } finally {
@@ -91,11 +98,12 @@ export const WeddingRSVP = () => {
         <div className="text-center mb-12">
           <Heart className="w-12 h-12 mx-auto mb-6 text-primary animate-pulse" />
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            RSVP
+            {isThai ? "ตอบรับคำเชิญ (RSVP)" : "RSVP"}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Please let us know if you'll be joining us on our special day. We
-            can't wait to celebrate with you!
+            {isThai
+              ? "กรุณาแจ้งให้เราทราบว่าท่านจะมาร่วมงานหรือไม่ เราตื่นเต้นมากที่จะได้ฉลองไปพร้อมกับทุกคน"
+              : "Please let us know if you'll be joining us on our special day. We can't wait to celebrate with you!"}
           </p>
           <div className="w-24 h-0.5 bg-gradient-romantic mx-auto mt-6" />
         </div>
@@ -103,10 +111,20 @@ export const WeddingRSVP = () => {
         <Card className="max-w-2xl mx-auto wedding-shadow">
           <CardHeader>
             <CardTitle className="font-display text-2xl text-center text-primary">
-              Reserve Your Spot
+              {isThai ? "ตอบรับคำเชิญ" : "Reserve Your Spot"}
             </CardTitle>
             <p className="text-center text-sm text-muted-foreground mt-1">
-              Please RSVP by <span className="font-medium">28 February 2026</span>.
+              {isThai ? (
+                <>
+                  กรุณาตอบรับภายใน{" "}
+                  <span className="font-medium">28 กุมภาพันธ์ 2569</span>.
+                </>
+              ) : (
+                <>
+                  Please RSVP by{" "}
+                  <span className="font-medium">28 February 2026</span>.
+                </>
+              )}
             </p>
           </CardHeader>
           <CardContent>
@@ -114,7 +132,9 @@ export const WeddingRSVP = () => {
               {/* Basic Information */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="guestName">Full Name *</Label>
+                  <Label htmlFor="guestName">
+                    {isThai ? "ชื่อ–นามสกุล *" : "Full Name *"}
+                  </Label>
                   <Input
                     id="guestName"
                     value={formData.guestName}
@@ -126,7 +146,9 @@ export const WeddingRSVP = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address *</Label>
+                  <Label htmlFor="email">
+                    {isThai ? "อีเมล *" : "Email Address *"}
+                  </Label>
                   <Input
                     id="email"
                     type="email"
@@ -139,7 +161,9 @@ export const WeddingRSVP = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">
+                  {isThai ? "เบอร์โทรศัพท์" : "Phone Number"}
+                </Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -151,7 +175,9 @@ export const WeddingRSVP = () => {
 
               {/* Attendance */}
               <div className="space-y-3">
-                <Label className="text-base">Will you be attending? *</Label>
+                <Label className="text-base">
+                  {isThai ? "ท่านจะมาร่วมงานหรือไม่? *" : "Will you be attending? *"}
+                </Label>
                 <RadioGroup
                   value={formData.attending}
                   onValueChange={(value) =>
@@ -161,11 +187,15 @@ export const WeddingRSVP = () => {
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="yes" id="yes" />
-                    <Label htmlFor="yes">Joyfully Accept</Label>
+                    <Label htmlFor="yes">
+                      {isThai ? "ยินดีมาร่วมงาน" : "Joyfully Accept"}
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="no" id="no" />
-                    <Label htmlFor="no">Regretfully Decline</Label>
+                    <Label htmlFor="no">
+                      {isThai ? "ไม่สามารถมาร่วมงานได้" : "Regretfully Decline"}
+                    </Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -174,12 +204,16 @@ export const WeddingRSVP = () => {
                 <div className="space-y-4 p-4 bg-muted/50 rounded-lg">
                   <div className="flex items-center gap-2">
                     <Users className="w-5 h-5 text-primary" />
-                    <Label className="text-base">Guest Information</Label>
+                    <Label className="text-base">
+                      {isThai ? "ข้อมูลผู้เข้าร่วม" : "Guest Information"}
+                    </Label>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="guestCount">Number of Guests</Label>
+                      <Label htmlFor="guestCount">
+                        {isThai ? "จำนวนผู้ใหญ่" : "Number of Guests"}
+                      </Label>
                       <Select
                         value={formData.guestCount}
                         onValueChange={(value) => handleInputChange("guestCount", value)}
@@ -195,7 +229,9 @@ export const WeddingRSVP = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="childrenCount">Number of Children</Label>
+                      <Label htmlFor="childrenCount">
+                        {isThai ? "จำนวนเด็ก" : "Number of Children"}
+                      </Label>
                       <Select
                         value={formData.childrenCount}
                         onValueChange={(value) => handleInputChange("childrenCount", value)}
@@ -215,7 +251,9 @@ export const WeddingRSVP = () => {
                   {/* Plus one block FIRST */}
                   {formData.guestCount === "2" && (
                     <div className="space-y-2 mt-4">
-                      <Label htmlFor="plusOneName">Plus One Name</Label>
+                      <Label htmlFor="plusOneName">
+                        {isThai ? "ชื่อผู้ติดตาม" : "Plus One Name"}
+                      </Label>
                       <Input
                         id="plusOneName"
                         value={formData.plusOneName}
@@ -228,7 +266,9 @@ export const WeddingRSVP = () => {
                   {/* Children names block after plus one */}
                   {formData.childrenCount !== "0" && (
                     <div className="space-y-2">
-                      <Label htmlFor="childrenNames">Children’s Names</Label>
+                      <Label htmlFor="childrenNames">
+                        {isThai ? "ชื่อเด็ก" : "Children’s Names"}
+                      </Label>
                       <Input
                         id="childrenNames"
                         value={formData.childrenNames}
@@ -241,7 +281,9 @@ export const WeddingRSVP = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="dietaryRestrictions">
-                      Dietary Restrictions or Allergies
+                      {isThai
+                        ? "ข้อจำกัดด้านอาหารหรืออาหารที่แพ้"
+                        : "Dietary Restrictions or Allergies"}
                     </Label>
                     <Textarea
                       id="dietaryRestrictions"
@@ -249,21 +291,29 @@ export const WeddingRSVP = () => {
                       onChange={(e) =>
                         handleInputChange("dietaryRestrictions", e.target.value)
                       }
-                      placeholder="Let us know about any dietary needs..."
+                      placeholder={
+                        isThai
+                          ? "หากมีข้อจำกัดด้านอาหาร กรุณาแจ้งให้เราทราบ..."
+                          : "Let us know about any dietary needs..."
+                      }
                       className="romantic-transition"
                     />
                   </div>
 
 
                   <div className="space-y-2">
-                    <Label htmlFor="specialRequests">Special Requests</Label>
+                    <Label htmlFor="specialRequests">
+                      {isThai ? "คำขอพิเศษ" : "Special Requests"}
+                    </Label>
                     <Textarea
                       id="specialRequests"
                       value={formData.specialRequests}
                       onChange={(e) =>
                         handleInputChange("specialRequests", e.target.value)
                       }
-                      placeholder="Any special requests..."
+                      placeholder={
+                        isThai ? "หากมีคำขอพิเศษ สามารถแจ้งได้ที่นี่..." : "Any special requests..."
+                      }
                       className="romantic-transition"
                     />
                   </div>
@@ -285,10 +335,10 @@ export const WeddingRSVP = () => {
                 {isSubmitting ? (
                   <>
                     <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent align-middle" />
-                    Sending...
+                    {isThai ? "กำลังส่ง..." : "Sending..."}
                   </>
                 ) : (
-                  "Send RSVP"
+                  (isThai ? "ส่งคำตอบรับ" : "Send RSVP")
                 )}
               </Button>
             </form>
@@ -297,7 +347,7 @@ export const WeddingRSVP = () => {
 
         <div className="text-center mt-8 text-muted-foreground">
           <p>
-            Questions? Contact{" "}
+            {isThai ? "หากมีคำถาม ติดต่อ " : "Questions? Contact "}
             <a
               href="https://wa.me/61434057326"
               className="text-primary hover:underline"
@@ -306,7 +356,7 @@ export const WeddingRSVP = () => {
             >
               Anna
             </a>{" "}
-            or{" "}
+            {isThai ? "หรือ " : "or "}
             <a
               href="https://wa.me/61405637265"
               className="text-primary hover:underline"

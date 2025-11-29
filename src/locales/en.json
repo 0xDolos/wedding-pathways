@@ -1,0 +1,17 @@
+{
+  "hero": {
+    "title": "Anna & Mike",
+    "subtitle": "are getting married",
+    "dateLocation": "October 31, 2026 – Hua Hin, Thailand",
+    "ctaRsvp": "RSVP Now",
+    "ctaDetails": "Wedding Details"
+  },
+  "countdown": {
+    "title": "Counting Down to Forever",
+    "subtitle": "Every moment brings us closer to our special day",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  }
+}

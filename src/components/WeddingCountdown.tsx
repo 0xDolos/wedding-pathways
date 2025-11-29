@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 
 interface CountdownProps {
   weddingDate: Date;
@@ -12,6 +13,9 @@ export const WeddingCountdown = ({ weddingDate }: CountdownProps) => {
     minutes: 0,
     seconds: 0,
   });
+  const { i18n } = useTranslation();
+  const currentLang = (i18n.language || "en").toLowerCase();
+  const isThai = currentLang.startsWith("th");
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -34,10 +38,10 @@ export const WeddingCountdown = ({ weddingDate }: CountdownProps) => {
   }, [weddingDate]);
 
   const timeUnits = [
-    { label: "Days", value: timeLeft.days },
-    { label: "Hours", value: timeLeft.hours },
-    { label: "Minutes", value: timeLeft.minutes },
-    { label: "Seconds", value: timeLeft.seconds },
+    { label: isThai ? "วัน" : "Days", value: timeLeft.days },
+    { label: isThai ? "ชั่วโมง" : "Hours", value: timeLeft.hours },
+    { label: isThai ? "นาที" : "Minutes", value: timeLeft.minutes },
+    { label: isThai ? "วินาที" : "Seconds", value: timeLeft.seconds },
   ];
 
   return (
@@ -45,10 +49,14 @@ export const WeddingCountdown = ({ weddingDate }: CountdownProps) => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Counting Down to Forever
+            {isThai
+              ? "นับถอยหลังสู่วันสำคัญของเรา"
+              : "Counting Down to Forever"}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Every moment brings us closer to our special day
+            {isThai
+              ? "ทุกช่วงเวลา พาเราเข้าใกล้วันพิเศษมากขึ้น"
+              : "Every moment brings us closer to our special day"}
           </p>
         </div>
 

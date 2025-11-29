@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Heart, Menu, X } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 interface WeddingNavigationProps {
   onScrollToSection: (sectionId: string) => void;
@@ -9,6 +10,10 @@ interface WeddingNavigationProps {
 export const WeddingNavigation = ({ onScrollToSection }: WeddingNavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { i18n } = useTranslation();
+  const currentLang = (i18n.language || "en").toLowerCase();
+  const isThai = currentLang.startsWith("th");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,38 +47,153 @@ export const WeddingNavigation = ({ onScrollToSection }: WeddingNavigationProps)
             }}
             className="flex items-center gap-2 text-xl font-display font-bold"
           >
-            <Heart className={`w-6 h-6 ${isScrolled ? 'text-primary' : 'text-white'}`} />
+            <Heart
+              className={`w-6 h-6 ${
+                isScrolled ? 'text-primary' : 'text-white'
+              }`}
+            />
             <span className={isScrolled ? 'text-foreground' : 'text-white'}>
-              A & M
+              A &amp; M
             </span>
           </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onScrollToSection(item.id)}
-                className={`font-medium transition-colors hover:text-primary ${
-                  isScrolled ? 'text-foreground' : 'text-white'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
+          {/* Right side: desktop nav + mobile lang + menu */}
+          <div className="flex items-center gap-3">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => onScrollToSection(item.id)}
+                  className={`font-medium transition-colors hover:text-primary ${
+                    isScrolled ? 'text-foreground' : 'text-white'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
-            ) : (
-              <Menu className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
-            )}
-          </button>
+              {/* Desktop Language Switcher */}
+              <div className="flex items-center gap-1 text-xs md:text-sm">
+                <button
+                  type="button"
+                  onClick={() => i18n.changeLanguage('en')}
+                  className={`px-2 py-1 rounded-md border transition ${
+                    !isThai
+                      ? `${
+                          isScrolled
+                            ? 'bg-foreground text-background border-foreground/80'
+                            : 'bg-white text-black border-white/80'
+                        }`
+                      : `${
+                          isScrolled
+                            ? 'bg-transparent text-foreground border-foreground/40'
+                            : 'bg-black/40 text-white/80 border-white/30'
+                        }`
+                  }`}
+                >
+                  EN
+                </button>
+                <span
+                  className={
+                    isScrolled ? 'text-foreground/60' : 'text-white/70'
+                  }
+                >
+                  /
+                </span>
+                <button
+                  type="button"
+                  onClick={() => i18n.changeLanguage('th')}
+                  className={`px-2 py-1 rounded-md border transition ${
+                    isThai
+                      ? `${
+                          isScrolled
+                            ? 'bg-foreground text-background border-foreground/80'
+                            : 'bg-white text-black border-white/80'
+                        }`
+                      : `${
+                          isScrolled
+                            ? 'bg-transparent text-foreground border-foreground/40'
+                            : 'bg-black/40 text-white/80 border-white/30'
+                        }`
+                  }`}
+                >
+                  ไทย
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile: language pill + menu button */}
+            <div className="flex items-center gap-2 md:hidden">
+              <div className="flex items-center gap-1 text-xs">
+                <button
+                  type="button"
+                  onClick={() => i18n.changeLanguage('en')}
+                  className={`px-2 py-1 rounded-md border transition ${
+                    !isThai
+                      ? `${
+                          isScrolled
+                            ? 'bg-foreground text-background border-foreground/80'
+                            : 'bg-white text-black border-white/80'
+                        }`
+                      : `${
+                          isScrolled
+                            ? 'bg-transparent text-foreground border-foreground/40'
+                            : 'bg-black/40 text-white/80 border-white/30'
+                        }`
+                  }`}
+                >
+                  EN
+                </button>
+                <span
+                  className={
+                    isScrolled ? 'text-foreground/60' : 'text-white/70'
+                  }
+                >
+                  /
+                </span>
+                <button
+                  type="button"
+                  onClick={() => i18n.changeLanguage('th')}
+                  className={`px-2 py-1 rounded-md border transition ${
+                    isThai
+                      ? `${
+                          isScrolled
+                            ? 'bg-foreground text-background border-foreground/80'
+                            : 'bg-white text-black border-white/80'
+                        }`
+                      : `${
+                          isScrolled
+                            ? 'bg-transparent text-foreground border-foreground/40'
+                            : 'bg-black/40 text-white/80 border-white/30'
+                        }`
+                  }`}
+                >
+                  ไทย
+                </button>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="md:hidden"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? (
+                  <X
+                    className={`w-6 h-6 ${
+                      isScrolled ? 'text-foreground' : 'text-white'
+                    }`}
+                  />
+                ) : (
+                  <Menu
+                    className={`w-6 h-6 ${
+                      isScrolled ? 'text-foreground' : 'text-white'
+                    }`}
+                  />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -91,6 +211,38 @@ export const WeddingNavigation = ({ onScrollToSection }: WeddingNavigationProps)
                 {item.label}
               </button>
             ))}
+
+            <div className="mt-2 px-4 flex items-center gap-2 text-sm">
+              <span className="text-muted-foreground mr-2">
+                Language:
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  i18n.changeLanguage("en");
+                }}
+                className={`px-2 py-1 rounded-md border text-xs transition ${
+                  !isThai
+                    ? "bg-foreground text-background border-foreground/80"
+                    : "bg-transparent text-foreground border-foreground/40"
+                }`}
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  i18n.changeLanguage("th");
+                }}
+                className={`px-2 py-1 rounded-md border text-xs transition ${
+                  isThai
+                    ? "bg-foreground text-background border-foreground/80"
+                    : "bg-transparent text-foreground border-foreground/40"
+                }`}
+              >
+                ไทย
+              </button>
+            </div>
           </div>
         )}
       </div>
