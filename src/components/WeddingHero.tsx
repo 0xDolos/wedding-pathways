@@ -11,12 +11,12 @@ export const WeddingHero = ({ onScrollToSection }: WeddingHeroProps) => {
     <section 
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${heroImage})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.04)), url(${heroImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-gradient-subtle opacity-20" />
+      <div className="absolute inset-0 bg-gradient-subtle opacity-10" />
       
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <div className="animate-fade-in">
@@ -38,11 +38,11 @@ export const WeddingHero = ({ onScrollToSection }: WeddingHeroProps) => {
 
           <div className="w-32 h-0.5 bg-gradient-romantic mx-auto mb-6" />
           
-          <p className="text-xl md:text-2xl text-white/90 mb-2 font-light">
+          <p className="text-xl md:text-2xl text-white mb-2 font-light">
             are getting married
           </p>
           
-          <p className="text-xl md:text-2xl text-white/80 mb-12 font-display italic">
+          <p className="text-xl md:text-2xl text-white mb-12 font-display italic">
             October 31, 2026 Hua Hin, Thailand
           </p>
           
@@ -67,7 +67,7 @@ export const WeddingHero = ({ onScrollToSection }: WeddingHeroProps) => {
         </div>
       </div>
       
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
         <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse" />
         </div>
