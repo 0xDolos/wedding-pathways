@@ -197,6 +197,7 @@ const AdminRSVPsPage = () => {
                   <tr>
                     <th className="px-3 py-2 text-left">Guest Name</th>
                     <th className="px-3 py-2 text-left">Email</th>
+                    <th className="px-3 py-2 text-left">Phone</th>
                     <th className="px-3 py-2 text-left">Attending</th>
                     <th className="px-3 py-2 text-left">Guests</th>
                     <th className="px-3 py-2 text-left">Children</th>
@@ -213,6 +214,7 @@ const AdminRSVPsPage = () => {
                     <tr key={r.id} className="border-t align-top">
                       <td className="px-3 py-2">{r.guestName}</td>
                       <td className="px-3 py-2">{r.email}</td>
+                      <td className="px-3 py-2">{r.phone}</td>
                       <td className="px-3 py-2 capitalize">
                         {r.attending}
                       </td>
