@@ -11,12 +11,12 @@ export const WeddingHero = ({ onScrollToSection }: WeddingHeroProps) => {
     <section 
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.08)), url(${heroImage})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${heroImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-gradient-subtle opacity-15" />
+      <div className="absolute inset-0 bg-gradient-subtle opacity-20" />
       
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <div className="animate-fade-in">
